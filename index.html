@@ -1,1 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Communication AI Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Communication AI Portal</h1>
+        <nav>
+            <a href="#" class="tab" data-tab="dashboard">Dashboard</a>
+            <a href="#" class="tab" data-tab="sessions">My Sessions</a>
+            <a href="#" class="tab" data-tab="progress">Progress</a>
+            <a href="#" class="tab" data-tab="history">History</a>
+            <a href="#" class="tab" data-tab="about">About Us</a>
+            <a href="#" class="tab" data-tab="login" id="loginBtn">Login</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="page visible">
+            <h2>Dashboard</h2>
+            <p>Welcome to your personalized communication skill-building portal.</p>
+        </section>
+
+        <!-- My Sessions -->
+        <section id="sessions" class="page">
+            <h2>My Sessions</h2>
+            <button class="session-btn">Session A – Facial Expressions</button>
+            <button class="session-btn">Session B – Body Gestures</button>
+            <button class="session-btn">Session C – Intonation & Voice</button>
+        </section>
+
+        <!-- Progress -->
+        <section id="progress" class="page">
+            <h2>Progress</h2>
+            <p>Your overall improvement percentage will appear here.</p>
+            <div id="progress-output"></div>
+        </section>
+
+        <!-- History -->
+        <section id="history" class="page">
+            <h2>History</h2>
+            <p>Track completed sessions and AI feedback logs.</p>
+            <div id="history-log"></div>
+        </section>
+
+        <!-- About -->
+        <section id="about" class="page">
+            <h2>About Us</h2>
+            <p>This platform scientifically evaluates communication skills to enhance self-awareness and growth.</p>
+        </section>
+
+        <!-- Login -->
+        <section id="login" class="page">
+            <h2>Login</h2>
+            <input type="email" id="email" placeholder="Enter email">
+            <input type="password" id="password" placeholder="Enter password">
+            <button id="loginSubmit">Login</button>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
 
