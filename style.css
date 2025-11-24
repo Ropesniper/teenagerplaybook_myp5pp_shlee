@@ -1,1 +1,10 @@
+body { font-family: Arial, sans-serif; margin: 0; background: #f5f8ff; }
+header { background: #1a73e8; color: white; padding: 15px; text-align: center; }
+nav a { margin: 0 10px; color: white; cursor: pointer; text-decoration: none; font-weight: 600; }
+nav a:hover { text-decoration: underline; }
+.page { display: none; padding: 20px; }
+.visible { display: block; }
+button { padding: 12px 15px; margin: 8px; border: none; background: #1a73e8; color: white; border-radius: 6px; cursor: pointer; }
+button:hover { background: #1559b0; }
+input { display: block; margin: 10px 0; padding: 10px; width: 250px; }
 
