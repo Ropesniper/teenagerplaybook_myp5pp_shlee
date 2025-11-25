@@ -1,69 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Communication AI Portal</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>PsyConnect — Cozy Comfort</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <header>
-        <h1>Communication AI Portal</h1>
-        <nav>
-            <a href="#" class="tab" data-tab="dashboard">Dashboard</a>
-            <a href="#" class="tab" data-tab="sessions">My Sessions</a>
-            <a href="#" class="tab" data-tab="progress">Progress</a>
-            <a href="#" class="tab" data-tab="history">History</a>
-            <a href="#" class="tab" data-tab="about">About Us</a>
-            <a href="#" class="tab" data-tab="login" id="loginBtn">Login</a>
-        </nav>
-    </header>
+  <header class="site-header">
+    <div class="brand">PsyConnect</div>
+    <nav class="nav">
+      <a href="#dashboard" data-nav>Dashboard</a>
+      <a href="#sessions" data-nav>My Sessions</a>
+      <a href="#progress" data-nav>Progress</a>
+      <a href="#history" data-nav>History</a>
+      <a href="#about" data-nav>About Us</a>
+      <a href="#login" id="navLogin" data-nav class="cta">Login</a>
+      <button id="btnLogout" class="btn-ghost" style="display:none">Logout</button>
+    </nav>
+  </header>
 
-    <main>
-        <!-- Dashboard Section -->
-        <section id="dashboard" class="page visible">
-            <h2>Dashboard</h2>
-            <p>Welcome to your personalized communication skill-building portal.</p>
-        </section>
+  <main id="app">
+    <!-- DASHBOARD -->
+    <section id="dashboard" class="page">
+      <div class="card">
+        <h1>Welcome to PsyConnect</h1>
+        <p class="muted">A private, cozy place to explore emotions. Everything stays on your device.</p>
+        <div class="grid-3">
+          <div class="mini-card">
+            <h3>My Sessions</h3>
+            <p>Start sessions to analyze facial expressions, posture, and voice.</p>
+            <a class="btn" data-goto="sessions">Open Sessions</a>
+          </div>
+          <div class="mini-card">
+            <h3>Progress</h3>
+            <p>AI suggests a progress percentage based on your recent sessions.</p>
+            <a class="btn" data-goto="progress">View Progress</a>
+          </div>
+          <div class="mini-card">
+            <h3>History</h3>
+            <p>View/export your local session evidence.</p>
+            <a class="btn" data-goto="history">Open History</a>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        <!-- My Sessions -->
-        <section id="sessions" class="page">
-            <h2>My Sessions</h2>
-            <button class="session-btn">Session A – Facial Expressions</button>
-            <button class="session-btn">Session B – Body Gestures</button>
-            <button class="session-btn">Session C – Intonation & Voice</button>
-        </section>
+    <!-- SESSIONS -->
+    <section id="sessions" class="page" style="display:none">
+      <div class="card">
+        <h2>My Sessions</h2>
+        <p class="muted">Full session does facial, pose and voice. You must be logged in and consent to AI use.</p>
 
-        <!-- Progress -->
-        <section id="progress" class="page">
-            <h2>Progress</h2>
-            <p>Your overall improvement percentage will appear here.</p>
-            <div id="progress-output"></div>
-        </section>
+        <div class="sessions-grid">
+          <div class="session-card">
+            <h3>Full Analysis Session</h3>
+            <p>Facial emotion + posture + voice intonation in one session.</p>
+            <button class="btn start-session" data-type="full" data-target="sessionA.html">Start Full Session</button>
+          </div>
 
-        <!-- History -->
-        <section id="history" class="page">
-            <h2>History</h2>
-            <p>Track completed sessions and AI feedback logs.</p>
-            <div id="history-log"></div>
-        </section>
+          <div class="session-card">
+            <h3>Facial Only</h3>
+            <p>Quick facial emotion detection (fast & private).</p>
+            <button class="btn start-session" data-type="facial" data-target="sessionB.html">Start Facial Session</button>
+          </div>
 
-        <!-- About -->
-        <section id="about" class="page">
-            <h2>About Us</h2>
-            <p>This platform scientifically evaluates communication skills to enhance self-awareness and growth.</p>
-        </section>
+          <div class="session-card">
+            <h3>Voice Only</h3>
+            <p>Microphone-only intonation analysis.</p>
+            <button class="btn start-session" data-type="intonation" data-target="sessionC.html">Start Intonation Session</button>
+          </div>
+        </div>
 
-        <!-- Login -->
-        <section id="login" class="page">
-            <h2>Login</h2>
-            <input type="email" id="email" placeholder="Enter email">
-            <input type="password" id="password" placeholder="Enter password">
-            <button id="loginSubmit">Login</button>
-        </section>
-    </main>
+        <div class="note muted">Tip: sit in natural light and speak naturally for best results.</div>
+      </div>
+    </section>
 
-    <script src="app.js"></script>
+    <!-- PROGRESS -->
+    <section id="progress" class="page" style="display:none">
+      <div class="card">
+        <h2>Progress Overview</h2>
+        <p class="muted">AI suggests a percentage based on participation, consistency & positivity.</p>
+
+        <div class="progress-box">
+          <div class="progress-bar">
+            <div id="progressFill" class="progress-fill" style="width:0%">0%</div>
+          </div>
+
+          <div class="progress-breakdown">
+            <div><strong>Participation</strong> <span id="scoreParticipation">0%</span></div>
+            <div><strong>Consistency</strong> <span id="scoreConsistency">0%</span></div>
+            <div><strong>Positive Ratio</strong> <span id="scorePositive">0%</span></div>
+          </div>
+
+          <div class="ai-suggestion">
+            <h4>AI suggestion</h4>
+            <p id="aiSuggestion">No sessions yet — start a session to get personalised suggestions.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- HISTORY -->
+    <section id="history" class="page" style="display:none">
+      <div class="card">
+        <h2>History & Evidence</h2>
+        <p class="muted">All session data is stored locally. Export or delete as you wish.</p>
+
+        <div id="historyList"></div>
+
+        <div class="history-actions">
+          <button class="btn" id="exportHistory">Export (JSON)</button>
+          <button class="btn btn-danger" id="clearHistory">Clear All</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="page" style="display:none">
+      <div class="card">
+        <h2>About Us</h2>
+        <p>PsyConnect is educational and privacy-first. No audio/video is uploaded; only small summaries are stored locally when you choose to save.</p>
+      </div>
+    </section>
+
+    <!-- LOGIN -->
+    <section id="login" class="page" style="display:none">
+      <div class="card auth-card">
+        <h2 id="authTitle">Login</h2>
+
+        <div class="auth-grid">
+          <div>
+            <label>Email</label>
+            <input id="authEmail" type="email" placeholder="you@example.com" />
+            <label>Password</label>
+            <input id="authPassword" type="password" placeholder="At least 6 characters" />
+            <div style="margin-top:12px;">
+              <button class="btn" id="btnLogin">Login / Create</button>
+              <label style="margin-left:12px"><input type="checkbox" id="rememberAgreement" /> Remember consent for 7 days</label>
+            </div>
+            <p id="authMsg" class="muted"></p>
+          </div>
+
+          <div>
+            <div class="auth-help">
+              <h3>Privacy & why consent?</h3>
+              <p class="muted">We use your webcam/mic only for real-time analysis and do not upload recordings. Consent is required each 7 days to respect privacy.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2025 PsyConnect — Cozy Comfort • Local-only prototype</p>
+  </footer>
+
+  <!-- Libraries & scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-core@4.10.0/dist/tf-core.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-webgl@4.10.0/dist/tf-backend-webgl.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/pose-detection@0.0.8/dist/pose-detection.min.js"></script>
+
+  <script src="ai.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
-
