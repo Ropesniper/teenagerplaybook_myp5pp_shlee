@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Sessions</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="container">
+  <div class="capsule">
+    <div class="session-box" onclick="openSession('intonation')">Intonation</div>
+    <div class="session-box" onclick="openSession('body')">Body Language</div>
+    <div class="session-box" onclick="openSession('facial')">Facial Expression</div>
+  </div>
+</div>
+
+<script src="js/auth.js"></script>
+<script>
+checkAuth("sessions.html");
+function openSession(type){
+  window.location.href = "session-detail.html?type=" + type;
+}
+</script>
+</body>
+</html>
