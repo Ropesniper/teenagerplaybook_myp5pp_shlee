@@ -1,5 +1,2 @@
-function saveHistory(videoName) {
-  let history = JSON.parse(localStorage.getItem("history")) || [];
-  history.push({ video: videoName, time: new Date().toLocaleString() });
-  localStorage.setItem("history", JSON.stringify(history));
-}
+let h=JSON.parse(localStorage.getItem("history"))||[];
+document.getElementById("history").innerHTML=h.map(x=>`<p>${x.video} - ${x.time}</p>`).join("");
