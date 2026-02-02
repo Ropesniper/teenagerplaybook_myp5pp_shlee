@@ -1,19 +1,20 @@
-const canvas = document.getElementById("progressChart");
-const ctx = canvas.getContext("2d");
+const canvas=document.getElementById("chart");
+const ctx=canvas.getContext("2d");
+const data=[60,40,80];
 
-const data = [70, 40, 90]; // example progress %
 
-function drawCircle(percent, color, startAngle) {
-  const angle = (percent / 100) * Math.PI * 2;
-  ctx.beginPath();
-  ctx.arc(150, 150, 100, startAngle, startAngle + angle);
-  ctx.strokeStyle = color;
-  ctx.lineWidth = 15;
-  ctx.stroke();
-  return startAngle + angle;
+function draw(percent,color,start){
+const angle=(percent/100)*Math.PI*2;
+ctx.beginPath();
+ctx.arc(150,150,100,start,start+angle);
+ctx.strokeStyle=color;
+ctx.lineWidth=14;
+ctx.stroke();
+return start+angle;
 }
 
-let start = 0;
-start = drawCircle(data[0], "#ff6f61", start);
-start = drawCircle(data[1], "#6a5acd", start);
-drawCircle(data[2], "#2ecc71", start);
+
+let s=0;
+s=draw(data[0],"#ff6f61",s);
+s=draw(data[1],"#6a5acd",s);
+draw(data[2],"#2ecc71",s);
