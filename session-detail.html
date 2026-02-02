@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Session</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="container">
+  <video id="video" width="600" controls>
+    <source src="video1.mp4" type="video/mp4">
+  </video>
+</div>
+
+<div class="popup" id="exercisePopup">
+  <div class="popup-content">
+    <h3>Practice Exercise</h3>
+    <p>Allow microphone and camera for exercise evaluation?</p>
+    <button onclick="startExercise()">Yes</button>
+    <button onclick="skipExercise()">Skip</button>
+  </div>
+</div>
+
+<script src="js/permissions.js"></script>
+<script src="js/ai-eval.js"></script>
+</body>
+</html>
