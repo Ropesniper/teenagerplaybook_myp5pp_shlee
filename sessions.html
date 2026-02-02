@@ -1,25 +1,20 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>My Sessions</title>
-<link rel="stylesheet" href="css/style.css">
-</head>
-<body>
 <div class="container">
-<div class="capsule-container">
-<div class="capsule" onclick="openSession('intonation')">Intonation</div>
-<div class="capsule" onclick="openSession('body')">Body language</div>
-<div class="capsule" onclick="openSession('facial')">Facial expression</div>
-</div>
+  <h2>Session</h2>
+  <div id="videoContainer"></div>
 </div>
 
+<div class="popup" id="popup">
+  <div class="popup-box">
+    <h3>Practice Exercise</h3>
+    <p>Allow camera & microphone for evaluation?</p>
+    <button onclick="startAI()">Start</button>
+  </div>
+</div>
 
-<script src="js/auth.js"></script>
+<script src="js/videos.js"></script>
+<script src="js/ai.js"></script>
 <script>
-checkAuth("sessions.html");
-function openSession(type){
-window.location.href="session-detail.html?type="+type;
-}
+  const params = new URLSearchParams(window.location.search);
+  const type = params.get("type");
+  loadVideos(type);
 </script>
-</body>
-</html>
