@@ -1,118 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Social Bloom | Behavioral Lab</title>
-    <script src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script>
-    <link rel="stylesheet" href="style.css">
+  <title>Teenager Playbook</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<header>
+  <div class="logo">Teenager Playbook</div>
+  <nav>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="sessions.html">My Sessions</a>
+    <a href="history.html">History</a>
+    <a href="references.html">References</a>
+    <a href="about.html">About the Project</a>
+  </nav>
+  <button class="login-btn" onclick="goLogin()">Login</button>
+</header>
 
-    <div id="cookie-overlay" class="popup-overlay">
-        <div class="popup-box">
-            <h3>Privacy & Cookie Policy</h3>
-            <p>We use functional cookies to remember your login for 30 days. Your biometric data is processed locally on your device via AI and is never stored. By clicking accept, you agree to our terms.</p>
-            <button class="action-btn" onclick="closePopup('cookie-overlay')">I Accept</button>
-        </div>
-    </div>
+<div class="container">
+  <div class="hero">
+    <h1>What is Behavioral Fixation?</h1>
+    <p>
+      Behavioral fixation refers to the tendency of individuals to repeat familiar patterns of behavior,
+      even when alternative responses may be more effective. It influences communication, emotional expression,
+      and social interaction, especially during adolescence.
+    </p>
+  </div>
+</div>
 
-    <div id="login-page" class="popup-overlay">
-        <div class="login-card">
-            <h2>Social Bloom Login</h2>
-            <input type="email" id="userEmail" placeholder="Email Address">
-            <input type="password" id="userPass" placeholder="Password">
-            <div class="login-options">
-                <label><input type="checkbox" id="rememberMe"> Remember me for 30 days</label>
-            </div>
-            <button class="action-btn" onclick="processLogin()">Login</button>
-        </div>
-    </div>
+<footer>
+  <a href="privacy.html">Privacy Policy</a> |
+  <a href="terms.html">Terms of Use</a> |
+  <a href="cookies.html">Cookie Policy</a>
+</footer>
 
-    <header>
-        <div class="nav-container">
-            <div class="logo">Social Bloom</div>
-            <nav>
-                <a href="#" onclick="route('home')">Home</a>
-                <a href="#" onclick="route('dashboard')">Dashboard</a>
-                <a href="#" onclick="route('sessions')">My Sessions</a>
-                <a href="#" onclick="route('history')">History</a>
-                <a href="#" onclick="route('references')">References</a>
-                <a href="#" onclick="route('about')">About</a>
-            </nav>
-            <div id="login-nav" onclick="showLogin()" class="login-trigger">Login</div>
-        </div>
-    </header>
-
-    <main id="app-viewport">
-        <section id="home" class="view active">
-            <h1>What is Behavioral Fixation?</h1>
-            <p>It is the psychological tendency to repeat specific behaviors even when they are no longer helpful. Our lab helps you "unstick" these habits.</p>
-            <div class="stickman-bg">
-                <div class="placeholder-art">🎨 [Background: Stickman teacher laughing with students]</div>
-            </div>
-            <button class="central-btn" onclick="route('sessions')">Enter My Sessions</button>
-        </section>
-
-        <section id="dashboard" class="view">
-            <h2>Your Training Progress</h2>
-            <div class="graph-container">
-                <div class="graph-card">
-                    <svg viewBox="0 0 36 36" class="circular-chart"><path class="circle" stroke-dasharray="75, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" /></svg>
-                    <span>Intonation</span>
-                </div>
-                <div class="graph-card">
-                    <svg viewBox="0 0 36 36" class="circular-chart"><path class="circle" stroke-dasharray="50, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" /></svg>
-                    <span>Body Language</span>
-                </div>
-            </div>
-            <button id="logout-btn" class="logout-btn" onclick="logout()">Logout of Session</button>
-        </section>
-
-        <section id="sessions" class="view">
-            <div class="capsule-grid">
-                <div class="capsule" onclick="openSession('Intonation')">
-                    <div class="shutter top"></div><div class="label">Intonation</div><div class="shutter bottom"></div>
-                </div>
-                <div class="capsule" onclick="openSession('Body Language')">
-                    <div class="shutter top"></div><div class="label">Body Language</div><div class="shutter bottom"></div>
-                </div>
-            </div>
-        </section>
-
-        <section id="session-detail" class="view">
-            <h2 id="session-title">Session</h2>
-            <div class="mirror-frame">
-                <video id="main-video" width="100%" src="your-video.mp4"></video>
-                <div id="ai-overlay" class="ai-overlay" style="display:none;">
-                    <video id="webcam" autoplay playsinline muted></video>
-                    <div class="ai-stats">Match: <span id="match-val">0</span>%</div>
-                </div>
-            </div>
-            <button id="session-action-btn" class="action-btn" onclick="startExercise()">Start Video</button>
-        </section>
-
-        <section id="history" class="view">
-            <h2>History</h2>
-            <table>
-                <thead><tr><th>Video</th><th>Time</th><th>Region</th></tr></thead>
-                <tbody id="history-body"></tbody>
-            </table>
-        </section>
-
-        <section id="references" class="view">
-            <div class="ref-columns">
-                <div class="ref-col"><h3>Contents</h3><p>Psychology Links...</p></div>
-                <div class="ref-col"><h3>Structure</h3><p>Coding Links...</p></div>
-            </div>
-        </section>
-
-        <section id="about" class="view">
-            <h2>About</h2>
-            <p>Designed for teenagers to explore social dynamics safely.</p>
-        </section>
-    </main>
-
-    <script src="script.js"></script>
+<script src="js/navigation.js"></script>
 </body>
 </html>
