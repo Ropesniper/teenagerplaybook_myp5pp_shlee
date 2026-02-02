@@ -1,26 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Session</title>
-  <link rel="stylesheet" href="css/style.css">
+<title>Session</title>
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <div class="container">
-  <video id="video" width="600" controls>
-    <source src="video1.mp4" type="video/mp4">
-  </video>
+<div class="mirror-frame">
+<video id="video" controls>
+<source src="assets/video1.mp4" type="video/mp4">
+</video>
+</div>
 </div>
 
-<div class="popup" id="exercisePopup">
-  <div class="popup-content">
-    <h3>Practice Exercise</h3>
-    <p>Allow microphone and camera for exercise evaluation?</p>
-    <button onclick="startExercise()">Yes</button>
-    <button onclick="skipExercise()">Skip</button>
-  </div>
+
+<div class="popup" id="popup">
+<div class="popup-content">
+<h3>Practice Exercise</h3>
+<p>This session can temporarily access your camera and microphone to evaluate your practice. No data is stored.</p>
+<label><input type="checkbox" id="agree"> I want to do the exercise</label><br><br>
+<button class="btn" onclick="startExercise()">Continue</button>
 </div>
+</div>
+
 
 <script src="js/permissions.js"></script>
-<script src="js/ai-eval.js"></script>
+<script src="js/ai.js"></script>
 </body>
 </html>
