@@ -1,0 +1,9 @@
+<div class="container">
+  <div class="card" id="historyList"></div>
+</div>
+
+<script>
+let history = JSON.parse(localStorage.getItem("history")) || [];
+document.getElementById("historyList").innerHTML =
+  history.map(h => `<p>${h.video} - ${h.time}</p>`).join("");
+</script>
