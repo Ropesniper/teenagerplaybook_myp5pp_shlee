@@ -1,30 +1,49 @@
 let isLoggedIn = false;
 let currentStream = null;
 let lastTarget = 'home';
-const stopPoints = [10, 30]; // Seconds where the video pauses for AI evaluation
+const stopPoints = [10, 25]; 
 
-// 1. NAVIGATION & LOGIN
+// ACCESS GUARD
 function route(id) {
-    const protectedRoutes = ['dashboard', 'sessions', 'history'];
+    const protectedRoutes = ['dashboard', 'sessions', 'history', 'session-detail'];
+    
     if (protectedRoutes.includes(id) && !isLoggedIn) {
         lastTarget = id;
-        document.getElementById('login-page').style.display = 'flex';
+        showLogin();
         return;
     }
-    // Turn off camera if leaving session
+
     if (id !== 'session-detail') stopWebcam();
     
     document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
     document.getElementById(id).classList.add('active');
 }
 
-function processLogin() {
-    isLoggedIn = true;
-    document.getElementById('login-page').style.display = 'none';
-    route(lastTarget);
+function showLogin() {
+    document.getElementById('login-page').style.display = 'flex';
 }
 
-// 2. SESSION FLOW
+function processLogin() {
+    const email = document.getElementById('userEmail').value;
+    const pass = document.getElementById('userPass').value;
+    if (email && pass) {
+        isLoggedIn = true;
+        document.getElementById('login-page').style.display = 'none';
+        document.getElementById('login-nav').innerText = "Account ✅";
+        route(lastTarget);
+    } else {
+        alert("Please enter credentials.");
+    }
+}
+
+function logout() {
+    isLoggedIn = false;
+    document.getElementById('login-nav').innerText = "Login";
+    alert("Logged out successfully.");
+    route('home');
+}
+
+// AI & SESSIONS
 function openSession(type) {
     document.getElementById('session-title').innerText = type;
     route('session-detail');
@@ -32,78 +51,49 @@ function openSession(type) {
 
 function startExercise() {
     const video = document.getElementById('main-video');
-    if (confirm("Would you like to start the training video and agree to the AI exercises?")) {
+    if (confirm("Allow webcam for exercise?")) {
         video.play();
-        checkVideoTime(video);
+        checkVideo(video);
         document.getElementById('session-action-btn').style.display = 'none';
     }
 }
 
-function checkVideoTime(video) {
-    let pointIndex = 0;
+function checkVideo(video) {
+    let p = 0;
     video.ontimeupdate = () => {
-        if (pointIndex < stopPoints.length && video.currentTime >= stopPoints[pointIndex]) {
-            video.pause();
-            pointIndex++;
-            startAIEvaluation();
+        if (p < stopPoints.length && video.currentTime >= stopPoints[p]) {
+            video.pause(); p++; startAI();
         }
     };
 }
 
-// 3. AI EVALUATION (STRICTLY START/STOP)
-async function startAIEvaluation() {
-    alert("Video Paused! Please mirror the expression using your webcam.");
+async function startAI() {
     document.getElementById('ai-overlay').style.display = 'block';
     const webcamElem = document.getElementById('webcam');
-
     try {
         currentStream = await navigator.mediaDevices.getUserMedia({ video: true });
         webcamElem.srcObject = currentStream;
-
-        const faceapi = ml5.faceApi(webcamElem, { withLandmarks: true }, () => {
-            evaluate(faceapi);
-        });
-    } catch (err) { alert("Camera needed for evaluation."); }
+        const faceapi = ml5.faceApi(webcamElem, { withLandmarks: true }, () => detect(faceapi));
+    } catch (e) { alert("Camera Error"); }
 }
 
-function evaluate(faceapi) {
+function detect(faceapi) {
     if (!currentStream) return;
-    faceapi.detect((err, result) => {
-        let scoreSpan = document.getElementById('match-val');
-        let score = parseInt(scoreSpan.innerText);
-
-        if (result && result.length > 0) {
-            score += 10;
-            scoreSpan.innerText = score;
-            if (score >= 80) {
-                stopWebcam();
-                resumeVideo();
-                return;
-            }
+    faceapi.detect((err, res) => {
+        let score = parseInt(document.getElementById('match-val').innerText);
+        if (res && res.length > 0) {
+            score += 15;
+            document.getElementById('match-val').innerText = score;
+            if (score >= 80) { stopWebcam(); document.getElementById('main-video').play(); return; }
         }
-        setTimeout(() => evaluate(faceapi), 500);
+        setTimeout(() => detect(faceapi), 500);
     });
 }
 
 function stopWebcam() {
-    if (currentStream) {
-        currentStream.getTracks().forEach(track => track.stop());
-        currentStream = null;
-    }
+    if (currentStream) { currentStream.getTracks().forEach(t => t.stop()); currentStream = null; }
     document.getElementById('ai-overlay').style.display = 'none';
     document.getElementById('match-val').innerText = "0";
-}
-
-function resumeVideo() {
-    alert("80% Match! Well done. Resuming video...");
-    document.getElementById('main-video').play();
-    logToHistory();
-}
-
-function logToHistory() {
-    const table = document.getElementById('history-body');
-    const row = `<tr><td>${document.getElementById('session-title').innerText}</td><td>${new Date().toLocaleTimeString()}</td><td>${Intl.DateTimeFormat().resolvedOptions().timeZone}</td></tr>`;
-    table.innerHTML += row;
 }
 
 function closePopup(id) { document.getElementById(id).style.display = 'none'; }
