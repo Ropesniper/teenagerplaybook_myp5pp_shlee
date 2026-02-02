@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Dashboard</title>
-  <link rel="stylesheet" href="css/style.css">
+<title>Dashboard</title>
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <div class="sidebar">
-  <a href="dashboard.html">Dashboard</a>
-  <a href="sessions.html">My Sessions</a>
-  <a href="history.html">History</a>
+<a href="dashboard.html">Dashboard</a>
+<a href="sessions.html">My Sessions</a>
+<a href="history.html">History</a>
 </div>
+
 
 <div class="container" style="margin-left:240px;">
-  <div class="card">
-    <h2>Your Progress</h2>
-    <canvas id="progressChart" width="300" height="300"></canvas>
-  </div>
-
-  <button class="login-btn" onclick="location.href='sessions.html'">My Sessions</button>
+<div class="card">
+<h2>Progress Overview</h2>
+<canvas id="chart" width="300" height="300"></canvas>
 </div>
+
+
+<button class="btn" onclick="location.href='sessions.html'">My Sessions</button>
+</div>
+
 
 <script src="js/auth.js"></script>
 <script src="js/progress.js"></script>
